@@ -1,0 +1,75 @@
+/*
+ * © Daniel Milbrandt 2017
+ * EMAIL: daniel.milbrandt@gmx.net
+ * Licence: Do whatever you want with it.
+ *
+ * 1. Install ts-node and tsconfig-paths
+ * 2. copy cluster.ts to your src directory
+ * 3. configure  PATH_TO_SERVER_APP for your needs
+ * 4. run $ ts-node cluster.ts
+ *
+ * This was a time safer for you and your company? Say thank you and/or spend some money:
+ * Paypal: daniel.milbrandt@gmx.net
+ *
+ */
+
+import cluster from 'cluster';
+import { cpus } from 'os';
+
+//const NUM_WORKERS = cpus().length;
+const NUM_WORKERS = 2;
+
+//path to your application entry file
+const PATH_TO_SERVER_APP = __dirname + '/server.ts';
+
+cluster.setupMaster({
+  execArgv: ['-r', 'tsconfig-paths/register', '-r', 'ts-node/register'],
+  exec: PATH_TO_SERVER_APP
+} as cluster.ClusterSettings);
+
+const workers: { [key: string]: cluster.Worker } = {};
+
+const closeCluster = () => {
+  console.log('Master stopped');
+
+  for (const pid in workers) {
+    workers[pid].destroy('SIGTERM');
+  }
+
+  process.exit(0);
+};
+
+console.info(
+  'Cluster: Master cluster setting up ' + NUM_WORKERS + ' workers...'
+);
+
+for (let i = 0; i < NUM_WORKERS; i++) {
+  const worker = cluster.fork();
+  workers[worker.process.pid] = worker;
+}
+
+cluster.on('online', function (worker) {
+  console.log('Cluster: Worker ' + worker.process.pid + ' is online');
+});
+
+cluster.on('exit', function (worker, code, signal) {
+  console.log(
+    'Cluster: Worker ' +
+      worker.process.pid +
+      ' died with code: ' +
+      code +
+      ', and signal: ' +
+      signal
+  );
+  console.log('Cluster: Starting a new worker');
+  const newWorker = cluster.fork();
+
+  workers[newWorker.process.pid] = newWorker;
+});
+
+// Master can be terminated by either SIGTERM
+// or SIGINT. The later is used by CTRL+C on console.
+
+//Note for nodemon. Use nodemon --signal SIGTERM
+process.on('SIGTERM', closeCluster);
+process.on('SIGINT', closeCluster);
