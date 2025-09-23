@@ -6,7 +6,8 @@
       "env": {
         "NODE_ENV": "production",
         "PORT": 3003,
-        "BBVA_URL": "https://www.bbvanetcash.pe/KDPOSolicitarCredenciales_es.html",
+        "BBVA_URL": "https://www.bbvanetcash.pe/DFAUTH85/mult/KDPOSolicitarCredenciales_es.html",
+        "BCP_URL": "https://www.tlcbcp.com/",
         "KEY_ACCESS": "8d760150-ab97-4016-8894-c84f4069e693",
         "ALLOWED_IPS": "::1"
       }

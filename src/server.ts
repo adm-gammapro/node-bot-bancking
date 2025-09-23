@@ -6,15 +6,14 @@ import logger from './utils/logger';
 import { router } from './routes';
 import config from './config';
 import accessMiddleware from './middleware/middlewareAccess';
-// import alowebIpsMiddleware from './middleware/middlewareAlowedIps';
 import { init as initBroserCache } from './automator/browserGlobal';
 
 interface ServerOptions {
   port: number;
 }
 class Server {
-  private app: Express;
-  private port: number;
+  private readonly app: Express;
+  private readonly port: number;
 
   constructor(options: ServerOptions) {
     this.app = express();
@@ -31,14 +30,10 @@ class Server {
   private middleware(): void {
     this.app.use(cors());
     this.app.use(bodyParser.json());
-    //this.app.use(alowebIpsMiddleware);
     this.app.use(accessMiddleware);
   }
 
   public run(): void {
-    /**
-     * Procesos puppeter en cache
-     */
     initBroserCache();
 
     this.app.listen(this.port, () =>

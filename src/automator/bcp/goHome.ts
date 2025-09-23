@@ -42,7 +42,7 @@ const goHome = async (page: Page) => {
 
       menuAccount.click();
     });
-    await page.waitForTimeout(2000);
+    await new Promise(resolve => setTimeout(resolve, 2000));
     logger.info('Navigating to home...');
   } catch (error) {
     logger.info(error);

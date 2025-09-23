@@ -69,7 +69,7 @@ class viewBalance {
     const frame = await elementHandleFrame.contentFrame();
     if (!frame) throw new Error('Error al buscar el frame');
 
-    await this.page.waitForTimeout(3000);
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
     const selectElement = await frame.$(
       'body > form > div > div > div:nth-child(1) > div.section > table > tbody > tr:nth-child(2) > td:nth-child(2) > select'
@@ -112,7 +112,7 @@ class viewBalance {
       'body > form > div > div > div.formActionButtons > div > input'
     );
 
-    await this.page.waitForTimeout(5000);
+    await new Promise(resolve => setTimeout(resolve, 5000));
 
     logger.info('Downloaded results...');
 
@@ -219,7 +219,7 @@ class viewBalance {
         menuOption000000200A.click();
       });
 
-      await this.page.waitForTimeout(2000);
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
       const elementHandleFrame = await this.page.waitForSelector(
         '#kyop-central-load-area'

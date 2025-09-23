@@ -54,7 +54,7 @@ class viewBalance {
     });
 
     // TEST
-    await this.page.waitForTimeout(4000);
+    await new Promise(resolve => setTimeout(resolve, 4000));
     // END TEST
 
     //Click al hipervinculo Posición Global en linea
@@ -73,7 +73,7 @@ class viewBalance {
     });
 
     // TEST
-    await this.page.waitForTimeout(4000);
+    await new Promise(resolve => setTimeout(resolve, 4000));
     // END TEST
 
     // navegando en la vista
@@ -85,10 +85,10 @@ class viewBalance {
     const frame = await elementHandleFrame.contentFrame();
     if (!frame) throw new Error('Error al buscar el frame');
 
-    await this.page.waitForTimeout(2000);
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     // TEST
-    await this.page.waitForTimeout(4000);
+    await new Promise(resolve => setTimeout(resolve, 4000));
     // END TEST
 
     await this.page.waitForFunction(() => {
@@ -97,7 +97,7 @@ class viewBalance {
     });
 
     // TEST
-    await this.page.waitForTimeout(4000);
+    await new Promise(resolve => setTimeout(resolve, 4000));
     // END TEST
 
     logger.info('Accediendo a vista de la cuenta');
@@ -114,7 +114,7 @@ class viewBalance {
     });
 
     // TEST
-    await this.page.waitForTimeout(4000);
+    await new Promise(resolve => setTimeout(resolve, 4000));
     // END TEST
 
     logger.info('Tabla extraida...');
@@ -153,7 +153,7 @@ class viewBalance {
       saldo_disponible: this.stringToFloat(dataAccount['column4'])
     };
     // TEST
-    await this.page.waitForTimeout(4000);
+    await new Promise(resolve => setTimeout(resolve, 4000));
     // END TEST
     
     // await this.page.waitForTimeout(3600000);

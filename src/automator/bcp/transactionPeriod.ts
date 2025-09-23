@@ -1,9 +1,6 @@
 import { Page } from 'puppeteer';
-import cheerio from 'cheerio';
 import moment from 'moment';
-
 import logger from '../../utils/logger';
-import AutomatorError from '../automatorError';
 
 class viewBalance {
   private readonly page: Page;
@@ -70,7 +67,7 @@ class viewBalance {
     // await this.page.waitForSelector('body > app-root > ng-component > div > div > div.dashboard-page__right-side-campaigns > ng-component > module-federation-adapter > ng-component > mft-wc-wrapper > div > ele-saldos-movimientos > app-layout > div > app-accounts-list > div.container-fluid.accounts > div > div > div:nth-child(3) > div > bcp-data-table > div.data-table-container > bcp-table > div', { timeout: 30000 });
     await this.page.waitForSelector('body > app-root > ng-component > div > div > div.dashboard-page__right-side-campaigns > ng-component > module-federation-adapter > ng-component > mft-wc-wrapper > div > ele-saldos-movimientos > app-layout > div > app-accounts-list > div.container-fluid.accounts > div > div > div:nth-child(3) > div > bcp-data-table-9nbaaa > div.data-table-container > bcp-table-9nbaaa > div', { timeout: 30000 });
     
-    await this.page.waitForTimeout(500);
+    await new Promise(resolve => setTimeout(resolve, 500));
 
     // const rows = await this.page.$$('body > app-root > ng-component > div > div > div.dashboard-page__right-side-campaigns > ng-component > module-federation-adapter > ng-component > mft-wc-wrapper > div > ele-saldos-movimientos > app-layout > div > app-accounts-list > div.container-fluid.accounts > div > div > div:nth-child(3) > div > bcp-data-table > div.data-table-container > bcp-table > div > div.cols-center.has-pinned-cols-left > div > bcp-table-row');
     const rows = await this.page.$$('body > app-root > ng-component > div > div > div.dashboard-page__right-side-campaigns > ng-component > module-federation-adapter > ng-component > mft-wc-wrapper > div > ele-saldos-movimientos > app-layout > div > app-accounts-list > div.container-fluid.accounts > div > div > div:nth-child(3) > div > bcp-data-table-9nbaaa > div.data-table-container > bcp-table-9nbaaa > div > div.cols-center.has-pinned-cols-left > div > bcp-table-row-9nbaaa')
@@ -171,7 +168,7 @@ class viewBalance {
     // }, dataAccount);
 
     // TODO: VALIDAR EXISTENCIA DEL COMPONENTE
-    await this.page.waitForTimeout(4000);
+    await new Promise(resolve => setTimeout(resolve, 4000));
 
     logger.info('Esperando que el loading desaparesca...');
     await this.page.waitForSelector(
@@ -183,7 +180,7 @@ class viewBalance {
     );
     logger.info('loading desaparecido...');
 
-    await this.page.waitForTimeout(1000);
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     await this.page.waitForSelector('body > app-root > ng-component > div > div > div.dashboard-page__right-side > ng-component > module-federation-adapter > ng-component > mft-wc-wrapper > div > ele-sym-account-detail > app-layout > app-account-detail > div.container-fluid.account-detail.d-print-none > div:nth-child(4) > div.account-detail__movements > div > app-filter-last-movements > form > div > div.col-12.col-xl-9 > div > div.col-8.col-lg-6.height-fields > bcp-datepicker-range-bpbaaa > div > bcp-datepicker-range-header-bpbaaa > div > div:nth-child(1) > bcp-input-bpbaaa');
     await this.page.click('body > app-root > ng-component > div > div > div.dashboard-page__right-side > ng-component > module-federation-adapter > ng-component > mft-wc-wrapper > div > ele-sym-account-detail > app-layout > app-account-detail > div.container-fluid.account-detail.d-print-none > div:nth-child(4) > div.account-detail__movements > div > app-filter-last-movements > form > div > div.col-12.col-xl-9 > div > div.col-8.col-lg-6.height-fields > bcp-datepicker-range-bpbaaa > div > bcp-datepicker-range-header-bpbaaa > div > div:nth-child(1) > bcp-input-bpbaaa');
@@ -246,35 +243,35 @@ class viewBalance {
 
     // await this.page.keyboard.press('Tab');
     // logger.info('TAB 2');
-    await this.page.waitForTimeout(1000);
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     // SET - FECHA DE INICIO
     await this.page.keyboard.type(
       moment(this.data.fechaInicio, 'YYYY-MM-DD').format('DD/MM/YYYY')
     );
 
-    await this.page.waitForTimeout(500);
+    await new Promise(resolve => setTimeout(resolve, 500));
     await this.page.keyboard.press('Tab');
-    await this.page.waitForTimeout(500);
+    await new Promise(resolve => setTimeout(resolve, 500));
 
     // SET - FECHA DE FIN
     await this.page.keyboard.type(
       moment(this.data.fechaFin, 'YYYY-MM-DD').format('DD/MM/YYYY')
     );
 
-    await this.page.waitForTimeout(500);
+    await new Promise(resolve => setTimeout(resolve, 500));
 
     await this.page.keyboard.press('Tab');
     await this.page.keyboard.press('Tab');
     await this.page.keyboard.press('Tab');
     logger.info('TAB 3');
 
-    await this.page.waitForTimeout(1000);
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Clic submit
     await this.page.click("body > app-root > ng-component > div > div > div.dashboard-page__right-side > ng-component > module-federation-adapter > ng-component > mft-wc-wrapper > div > ele-sym-account-detail > app-layout > app-account-detail > div.container-fluid.account-detail.d-print-none > div:nth-child(4) > div.account-detail__movements > div > app-filter-last-movements > form > div > div.col-xl-3.text-xl-left.text-right.filter-last-movements__btn-content.col-12 > bcp-button-bpbaaa:nth-child(2)")
 
-    await this.page.waitForTimeout(1000);
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     // label movimientos
     logger.info('Buscando por los filtros...');
@@ -300,7 +297,7 @@ class viewBalance {
 
     logger.info(`Existen [${labelContent}] registros`);
 
-    await this.page.waitForTimeout(1000);
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     // verifica si hay navegacion de pagina
     const navPage = await this.page.evaluate(() => {

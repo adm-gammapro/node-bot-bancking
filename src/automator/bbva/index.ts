@@ -6,7 +6,6 @@ import ViewBalance from './viewBalance';
 import TransactionPeriod from './transactionPeriod';
 import AutomatorError from '../automatorError';
 import goHome from './goHome';
-import fs from 'fs';
 import {
   getPageInstance,
   setPageInstance,
@@ -16,7 +15,7 @@ import {
 const errorMsgGeneralAutomator = 'Ocurrio un error en el proceso automatizado';
 
 class BBVA {
-  private page: puppeteer.Page | null;
+  private readonly page: puppeteer.Page | null;
   private readonly data: any;
 
   constructor(page: puppeteer.Page, data: any) {
@@ -123,7 +122,7 @@ const bbva = {
             '--disable-features=IsolateOrigins,site-per-process',
             `--window-size=${windowSize.width},${windowSize.height}`
           ],
-          headless: config.server.isProduction ? 'new' : false,
+          headless: config.server.isProduction ? true : false,
           defaultViewport: null
         });
 

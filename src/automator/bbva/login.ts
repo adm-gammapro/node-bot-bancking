@@ -1,4 +1,4 @@
-import { Page, errors } from 'puppeteer';
+import puppeteer, { Page } from 'puppeteer';
 
 import logger from '../../utils/logger';
 import AutomatorError from '../automatorError';
@@ -20,7 +20,7 @@ class Login {
     logger.info('Logging in...');
 
     // TEST
-    await this.page.waitForTimeout(5000);
+    await new Promise(resolve => setTimeout(resolve, 5000));
     // END TEST
 
     
@@ -34,12 +34,12 @@ class Login {
     // // END TEST
     
 
-    await this.page.waitForTimeout(2000);
+    await new Promise(resolve => setTimeout(resolve, 2000));
     await this.page.type('#empresa', this.data.codigoEmpresa);
     await this.page.type('#usuario', this.data.codigoUsuario);
 
     await this.page.type('#clave_acceso_ux', this.data.claveAcceso);
-    await this.page.waitForTimeout(1000);
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
 
     
@@ -83,7 +83,18 @@ class Login {
         logger.info('Capturando SCREEN DEL ERROR...');
         const base64 = await this.page.screenshot({ encoding: 'base64' });
         logger.info(base64);
-        if (!(error instanceof errors.TimeoutError)) {
+        if (error instanceof Error) {
+          // Verificar si es error de timeout por el mensaje
+          const isTimeoutError = error.message.includes('timeout') || 
+                                error.message.includes('Timeout') ||
+                                error.name === 'TimeoutError';
+          
+          if (!isTimeoutError) {
+            throw error;
+          }
+          // Si es timeout, no hacer throw (dejar continuar o manejar según necesidad)
+          logger.info('Timeout esperando selector, continuando...');
+        } else {
           throw error;
         }
       }
@@ -109,7 +120,7 @@ class Login {
     }
 
     logger.info('Scan Popuop Notification...');
-    await this.page.waitForTimeout(2000);
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     // #kyop-lightbox-internal-container-div
 

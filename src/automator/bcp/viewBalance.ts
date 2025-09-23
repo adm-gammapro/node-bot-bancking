@@ -1,8 +1,4 @@
 import { Page } from 'puppeteer';
-import cheerio from 'cheerio';
-
-import logger from '../../utils/logger';
-import AutomatorError from '../automatorError';
 
 class viewBalance {
   private readonly page: Page;
@@ -40,8 +36,7 @@ class viewBalance {
       menuAccount.click();
     });
 
-
-    await this.page.waitForTimeout(1000);
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     // CLIC ITEM CUENTA:
     await this.page.evaluate(() => {
@@ -63,7 +58,7 @@ class viewBalance {
     // await this.page.waitForSelector('body > app-root > ng-component > div > div > div.dashboard-page__right-side-campaigns > ng-component > module-federation-adapter > ng-component > mft-wc-wrapper > div > ele-saldos-movimientos > app-layout > div > app-accounts-list > div.container-fluid.accounts > div > div > div:nth-child(3) > div > bcp-data-table > div.data-table-container > bcp-table > div', { timeout: 30000 });
     await this.page.waitForSelector('body > app-root > ng-component > div > div > div.dashboard-page__right-side-campaigns > ng-component > module-federation-adapter > ng-component > mft-wc-wrapper > div > ele-saldos-movimientos > app-layout > div > app-accounts-list > div.container-fluid.accounts > div > div > div:nth-child(3) > div > bcp-data-table-9nbaaa > div.data-table-container > bcp-table-9nbaaa > div', { timeout: 30000 });
 
-    await this.page.waitForTimeout(500);
+    await new Promise(resolve => setTimeout(resolve, 500));
 
     // const rows = await this.page.$$('body > app-root > ng-component > div > div > div.dashboard-page__right-side-campaigns > ng-component > module-federation-adapter > ng-component > mft-wc-wrapper > div > ele-saldos-movimientos > app-layout > div > app-accounts-list > div.container-fluid.accounts > div > div > div:nth-child(3) > div > bcp-data-table > div.data-table-container > bcp-table > div > div.cols-center.has-pinned-cols-left > div > bcp-table-row');
     const rows = await this.page.$$('body > app-root > ng-component > div > div > div.dashboard-page__right-side-campaigns > ng-component > module-federation-adapter > ng-component > mft-wc-wrapper > div > ele-saldos-movimientos > app-layout > div > app-accounts-list > div.container-fluid.accounts > div > div > div:nth-child(3) > div > bcp-data-table-9nbaaa > div.data-table-container > bcp-table-9nbaaa > div > div.cols-center.has-pinned-cols-left > div > bcp-table-row-9nbaaa')

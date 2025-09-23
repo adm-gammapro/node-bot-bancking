@@ -15,7 +15,7 @@ import {
 const errorMsgGeneralAutomator = 'Ocurrio un error en el proceso automatizado';
 
 class BCP {
-  private page: puppeteer.Page;
+  private readonly page: puppeteer.Page;
   private readonly data: any;
 
   constructor(page: puppeteer.Page, data: any) {
@@ -112,7 +112,7 @@ const bcp = {
             '--disable-features=IsolateOrigins,site-per-process',
             `--window-size=${windowSize.width},${windowSize.height}`
           ],
-          headless: config.server.isProduction ? 'new' : false,
+          headless: config.server.isProduction ? true : false,
           defaultViewport: null
         });
 

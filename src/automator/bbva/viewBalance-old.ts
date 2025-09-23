@@ -78,7 +78,7 @@ class viewBalance {
 
     logger.info('Select encontrado');
 
-    await this.page.waitForTimeout(3000);
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
     const selectOptions = await selectElement.$$('option');
 
@@ -102,7 +102,7 @@ class viewBalance {
       );
     }
 
-    await this.page.waitForTimeout(1500);
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
     await frame.evaluate(() => {
       const btnAceptar = document.querySelector<HTMLButtonElement>('#b1');
@@ -112,7 +112,7 @@ class viewBalance {
       btnAceptar.click();
     });
 
-    await this.page.waitForTimeout(3000);
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
     logger.info('Accediendo a vista de la cuenta');
 

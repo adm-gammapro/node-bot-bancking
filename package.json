@@ -36,7 +36,7 @@
     "moment": "^2.29.4",
     "multer": "^1.4.5-lts.1",
     "pg": "^8.11.0",
-    "puppeteer": "^23.1.0",
+    "puppeteer": "^23.11.1",
     "tsconfig-paths": "^4.2.0",
     "uuid": "^9.0.0",
     "winston": "^3.10.0"
@@ -48,6 +48,7 @@
     "@types/joi": "^17.2.3",
     "@types/multer": "^1.4.7",
     "@types/node": "^20.3.1",
+    "@types/puppeteer": "^7.0.4",
     "@types/uuid": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",

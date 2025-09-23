@@ -5,7 +5,6 @@ import config from '../../config/';
 import AutomatorError from '../automatorError';
 import { Solver } from '2captcha';
 import QuerySelectors from './querySelectors';
-import { configLoader } from 'tsconfig-paths/lib/config-loader';
 
 const solver = new Solver(String(config.server.service_2captcha));
 
@@ -24,7 +23,7 @@ class Login {
     }
 
     logger.info('Logging in...');
-    await this.page.waitForTimeout(5000);
+    await new Promise(resolve => setTimeout(resolve, 5000));
 
     logger.info('Ingresando tarjeta...');
     await this.page.waitForSelector(QuerySelectors.inputLogin);
@@ -34,8 +33,7 @@ class Login {
     await this.page.keyboard.press('Tab');
     await this.page.keyboard.press('Tab');
 
-    await this.page.waitForTimeout(2000);
-
+    await new Promise(resolve => setTimeout(resolve, 2000));
     
 
     
@@ -75,7 +73,7 @@ class Login {
       // @ts-ignore
       button.click();
 
-      await this.page.waitForTimeout(200);
+      await new Promise(resolve => setTimeout(resolve, 2000));
     }
 
     
@@ -123,7 +121,7 @@ class Login {
     } else {
       logger.error('No se pudo procesar captcha');
     }
-    await this.page.waitForTimeout(1000);
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
 
     // TEST
@@ -137,7 +135,7 @@ class Login {
 
     logger.info('Logging submit!...');
 
-    await this.page.waitForTimeout(2000);
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     const errorLogin = await this.page.evaluate(() => {
       const titleError = document.querySelector<HTMLElement>(
@@ -169,7 +167,7 @@ class Login {
     logger.info('Pagina cargada...');
 
     // TODO: Realizar mas pruebas
-    await this.page.waitForTimeout(3000);
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
     logger.info('Esperando que el loading desaparesca...');
     // document.querySelector(
